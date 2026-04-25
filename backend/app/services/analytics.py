@@ -14,7 +14,7 @@ from app.models.schemas import (
 from app.services.brapi import get_historical, get_quotes
 
 
-def compute_sharpe(daily_returns: list[float], risk_free_annual: float = 0.105) -> float:
+def compute_sharpe(daily_returns: list[float], risk_free_annual: float = 0.1475) -> float:
     n = len(daily_returns)
     if n < 2:
         return 0.0
@@ -26,7 +26,7 @@ def compute_sharpe(daily_returns: list[float], risk_free_annual: float = 0.105) 
     return round((mean * 252 - risk_free_annual) / (std * math.sqrt(252)), 4)
 
 
-def compute_sortino(daily_returns: list[float], risk_free_annual: float = 0.105) -> float:
+def compute_sortino(daily_returns: list[float], risk_free_annual: float = 0.1475) -> float:
     n = len(daily_returns)
     if n < 2:
         return 0.0
@@ -101,7 +101,7 @@ def compute_jensens_alpha(
     mean_portfolio_daily: float,
     mean_benchmark_daily: float,
     beta: float,
-    risk_free_annual: float = 0.105,
+    risk_free_annual: float = 0.1475,
 ) -> float:
     """α = Rp − [Rf + β(Rm − Rf)], annualised and expressed as a percentage."""
     rp = mean_portfolio_daily * 252

@@ -19,7 +19,7 @@ a Next.js dashboard, PostgreSQL via Prisma, and live market data from
 - **Risk metrics** (all time-weighted, supporting 1m / 3m / 6m / 1y ranges):
   - **Jensen's Alpha** — β-adjusted annualised excess return: `α = Rp − [Rf + β(Rm − Rf)]`
   - **Beta** — portfolio sensitivity to the Ibovespa
-  - **Sharpe ratio** — annualised, risk-free rate calibrated to the Selic (10.5% p.a.)
+  - **Sharpe ratio** — annualised, risk-free rate calibrated to the Selic (14.75% p.a.)
   - **Sortino ratio** — like Sharpe but penalises only downside volatility
   - **Historical VaR 95%** — 1-day loss threshold at 95% confidence
   - **Tracking error** — annualised std of excess returns vs. IBOV
