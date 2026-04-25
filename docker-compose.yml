@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: alphaview
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:password@postgres:5432/alphaview
+    env_file:
+      - ./backend/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    command: >
+      sh -c "prisma db push --schema /app/schema.prisma &&
+             uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    # No NEXT_PUBLIC_API_URL: the browser hits `/api/*` on the frontend
+    # origin and Next.js rewrites it to the internal `backend` service via
+    # the Docker network. This keeps the whole app reachable through a
+    # single public URL (great for ngrok/Vercel-style deploys).
+    depends_on:
+      - backend
+    # No source mount: production build is baked into the image. Any TSX
+    # change requires `docker compose up -d --build frontend`.
+
+volumes:
+  pgdata:

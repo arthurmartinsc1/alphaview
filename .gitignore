@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.env
+
+# Prisma
+backend/prisma/
+
+# Node
+node_modules/
+.next/
+frontend/.env
+frontend/.env.local
+
+# Docker
+*.log
+
+# OS
+.DS_Store
+
+# Local docs
+EXPLANATION.md
