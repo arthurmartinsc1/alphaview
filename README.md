@@ -59,16 +59,19 @@ the containers.
 
 ```bash
 # 1. Clone and enter the project
-git clone <repo-url> alphaview && cd alphaview
+git clone https://github.com/arthurmartinsc1/alphaview && cd alphaview
 
-# 2. Copy environment files (and add your BRAPI_TOKEN if you have one)
+# 2. Copy environment files
+cp .env.example .env
 cp backend/.env.example backend/.env
 cp frontend/.env.example frontend/.env
 
-# 3. Build and start everything (postgres + backend + frontend)
+# 3. (Optional) Add your BRAPI_TOKEN in backend/.env for better rate limits
+
+# 4. Build and start everything (postgres + backend + frontend)
 docker-compose up --build
 
-# 4. In another terminal, seed the database with sample data
+# 5. In another terminal, seed the database with sample data
 docker-compose exec backend python seed.py
 ```
 
